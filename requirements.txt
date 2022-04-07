@@ -1,0 +1,5 @@
+azure-functions
+requests
+flatten_json
+datetime
+azure-storage-blob
