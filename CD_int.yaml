@@ -1,0 +1,42 @@
+trigger: none
+
+pool:
+ vmImage: ubuntu-latest
+
+steps:
+- task: ExtractFiles@1
+  displayName: 'Extract files '
+  inputs:
+    destinationFolder: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
+    cleanDestinationFolder: false
+
+- script: |
+   pip install azure-functions
+   pip install pytest pytest-azurepipelines
+   pip install requests
+   pip install azure-storage-blob
+   pip install flatten-json
+   pip install --target="$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/.python_packages/lib/site-packages" -r $(System.DefaultWorkingDirectory)/_olga_repo/af_drop/requirements.txt
+  displayName: 'Install required libraries'
+  
+- task: AzureFunctionApp@1
+  displayName: 'Azure Function App Deploy: olga-int'
+  inputs:
+    azureSubscription: 'my_subsc'
+    appType: functionAppLinux
+    appName: 'olga-int'
+    package: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
+    runtimeStack: 3
+    startUpCommand: 'pip install requirements.txt'
+    
+- script: 'python -m pytest inttest.py --doctest-modules --junitxml=inttest.xml'
+  workingDirectory: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
+  displayName: 'Run tests'
+  env:
+    mystorageconnectionappsetting: <blob_connect_str>
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results'
+  inputs:
+    testResultsFiles: inttest.xml
+    searchFolder: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
