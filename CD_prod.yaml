@@ -1,0 +1,28 @@
+trigger: none
+
+pool:
+ vmImage: ubuntu-latest
+ 
+ steps:
+- task: ExtractFiles@1
+  displayName: 'Extract files '
+  inputs:
+    destinationFolder: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
+    cleanDestinationFolder: false
+
+- script: |
+   pip install azure-functions
+   pip install pytest pytest-azurepipelines
+   pip install requests
+   pip install flatten-json
+   pip install --target="$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/.python_packages/lib/site-packages" -r $(System.DefaultWorkingDirectory)/_olga_repo/af_drop/requirements.txt
+  displayName: 'Install required libraries'
+
+- task: AzureFunctionApp@1
+  displayName: 'Azure Function App Deploy: olga-prd'
+  inputs:
+    azureSubscription: 'my_subscr'
+    appType: functionAppLinux
+    appName: 'olgab-prod'
+    package: '$(System.DefaultWorkingDirectory)/_olga_repo/af_drop/'
+    runtimeStack: 3
