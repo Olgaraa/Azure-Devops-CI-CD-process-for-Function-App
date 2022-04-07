@@ -1,0 +1,39 @@
+trigger: none
+
+variables:
+  azureSubscription: 'my_subscr'
+
+pool:
+ vmImage: ubuntu-latest
+
+steps: 
+- bash: |
+   pip install azure-functions
+   pip install pytest pytest-azurepipelines
+   python -m pip install requests
+   pip install azure-storage-blob
+   pip install flatten-json
+   python -m pytest af_test.py --doctest-modules --junitxml=testResults.xml
+  workingDirectory: $(Build.SourcesDirectory)
+  displayName: Run tests  
+  
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+   testResultsFiles: '**/test*.xml'
+   testRunTitle: Publish test results
+ 
+- task: ArchiveFiles@2
+  inputs:
+   rootFolderOrFile: '$(Build.SourcesDirectory)'
+   includeRootFolder: false
+   archiveType: 'zip'
+   archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'  
+   replaceExistingArchive: true
+   displayName: Archive files
+ 
+- publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+  artifact: af_drop
+  displayName: Publish Build artifacts
+
+ 
