@@ -11,10 +11,10 @@ Useful information:
 
 `pool: In order to run a pipeline, we need an agent, which is a server with the necessary operating systems and tools, that will make our job run properly. Using Azure Devops Service we can make us of self-hosted Microsoft agents, we just need to define an operating system under "pool".`
 
-$Build.SourcesDirectory - main foder of our repo unit test - the process of checking small pieces of code (eg. functions) unittest.mock - mock objects can simulate the behavior of complex, real objects (eg. we can check whether a blob is being created in blob storage) assert - used to ensure that the code is behaving as expected
+`$Build.SourcesDirectory - main foder of our repo unit test - the process of checking small pieces of code (eg. functions) unittest.mock - mock objects can simulate the behavior of complex, real objects (eg. we can check whether a blob is being created in blob storage) assert - used to ensure that the code is behaving as expected`
 
-ArchiveFiles@2: Used in order to create build artifacts. $Build.ArtifactsStagingDirectory - the local path on the agent where any artifacts are copied to before being pushed to their destination
+`ArchiveFiles@2: Used in order to create build artifacts. $Build.ArtifactsStagingDirectory - the local path on the agent where any artifacts are copied to before being pushed to their destination`
 
-publish: Used to publish the artifacts. By default, they are being saved into $System.ArtifactsDirectory
+`publish: Used to publish the artifacts. By default, they are being saved into $System.ArtifactsDirectory`
 
-AzureFunctionApp@1: Deploys the function.
+`AzureFunctionApp@1: Deploys the function.`
