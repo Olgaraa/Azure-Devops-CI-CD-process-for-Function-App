@@ -7,9 +7,9 @@ it should execute Integration tests. Afterwards it should be released to PROD (M
 
 Useful information:
 
-pr: Pull request trigger, so that every time we make a pull request to the branch, the pipeline will be getting started automatically.
+`pr: Pull request trigger, so that every time we make a pull request to the branch, the pipeline will be getting started automatically.`
 
-pool: In order to run a pipeline, we need an agent, which is a server with the necessary operating systems and tools, that will make our job run properly. Using Azure Devops Service we can make us of self-hosted Microsoft agents, we just need to define an operating system under "pool".
+`pool: In order to run a pipeline, we need an agent, which is a server with the necessary operating systems and tools, that will make our job run properly. Using Azure Devops Service we can make us of self-hosted Microsoft agents, we just need to define an operating system under "pool".`
 
 $Build.SourcesDirectory - main foder of our repo unit test - the process of checking small pieces of code (eg. functions) unittest.mock - mock objects can simulate the behavior of complex, real objects (eg. we can check whether a blob is being created in blob storage) assert - used to ensure that the code is behaving as expected
 
