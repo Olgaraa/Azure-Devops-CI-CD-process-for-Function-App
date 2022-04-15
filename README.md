@@ -7,7 +7,7 @@ it should execute Integration tests. Afterwards it should be released to PROD (M
 
 Useful information:
 
-`pr: Pull request trigger, so that every time we make a pull request to the branch, the pipeline will be getting started automatically.`
+==pr: Pull request trigger, so that every time we make a pull request to the branch, the pipeline will be getting started automatically.==
 
 `pool: In order to run a pipeline, we need an agent, which is a server with the necessary operating systems and tools, that will make our job run properly. Using Azure Devops Service we can make us of self-hosted Microsoft agents, we just need to define an operating system under "pool".`
 
