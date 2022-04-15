@@ -1,4 +1,4 @@
-Scope of the project:
+**Scope of the project:**
 
 Create a CI/CD process for your AF application. The CI pipeline should make a build, execute unit tests and create an artifact, which should be used in the CD pipeline.
 The tests should be published.
